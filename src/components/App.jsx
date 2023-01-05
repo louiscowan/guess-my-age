@@ -14,21 +14,33 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    const robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
+    let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
+    console.log(robotAgeGuess)
+    setAIGuess(robotAgeGuess)
+    setIsAgeSet(true)
+  }
+
+  function doIt () {
+    let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
+    console.log(robotAgeGuess)
     setAIGuess(robotAgeGuess)
     setIsAgeSet(true)
   }
 
   function isHigher () {
-    setAIGuess([AIGuess, AINumber[1]])
-    const robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
+    SetAINumber([AIGuess, AINumber[1]])
+    let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
     setAIGuess(robotAgeGuess)
+    doIt()
+    console.log("higher", AINumber)
   }
 
   function isLower () {
-    setAIGuess([AIGuess, AINumber[1]])
-    const robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
+    SetAINumber([AINumber[0], AIGuess])
+    let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
     setAIGuess(robotAgeGuess)
+    doIt()
+    console.log("Lower", AINumber)
   }
 
 
@@ -41,7 +53,8 @@ function App() {
        </form>
 
       {isAgeSet ? <h1>The AI guessed that you were {AIGuess}</h1> : null}
-      {AIGuess ? <div><h2>Is your age higher or lower</h2><button onCLick={() => isHigher()}>Higher</button><button onCLick={() => isLower()}>Lower</button></div> : null}
+      {AIGuess === age && isAgeSet ? <h2>Guessed Your Age</h2> : null}
+      {AIGuess && AIGuess !== age ? <div><h2>Is your age higher or lower</h2><button onClick={isHigher}>Higher</button><button onClick={isLower}>Lower</button></div> : null}
     </div>
   );
 }
