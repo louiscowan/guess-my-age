@@ -20,7 +20,7 @@ function App() {
     setIsAgeSet(true)
   }
 
-  function doIt () {
+  function GuessAgain () {
     let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
     console.log(robotAgeGuess)
     setAIGuess(robotAgeGuess)
@@ -31,7 +31,7 @@ function App() {
     SetAINumber([AIGuess, AINumber[1]])
     let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
     setAIGuess(robotAgeGuess)
-    doIt()
+    GuessAgain()
     console.log("higher", AINumber)
   }
 
@@ -39,7 +39,7 @@ function App() {
     SetAINumber([AINumber[0], AIGuess])
     let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
     setAIGuess(robotAgeGuess)
-    doIt()
+    GuessAgain()
     console.log("Lower", AINumber)
   }
 
