@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../App.css';
 
 function App() {
@@ -7,11 +7,16 @@ function App() {
   const [isAgeSet, setIsAgeSet] = useState(false)
   const [AIGuess, setAIGuess] = useState("")
   const [AINumber, SetAINumber] = useState([1, 100])
-
+  const [higherLowerClicked, setHigherLowerClicked] = useState(false)
+  
   function setAgeFunc (e) {
     setAge(e.target.value)
   }
-
+  
+  useEffect(() => {
+    console.log("useEffect", AINumber)
+  }, [AINumber])
+  
   function handleSubmit(e) {
     e.preventDefault()
     let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
@@ -20,30 +25,19 @@ function App() {
     setIsAgeSet(true)
   }
 
-  function GuessAgain () {
-    let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
-    console.log(robotAgeGuess)
-    setAIGuess(robotAgeGuess)
-    setIsAgeSet(true)
-  }
-
   function isHigher () {
     SetAINumber([AIGuess, AINumber[1]])
-    let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
-    setAIGuess(robotAgeGuess)
-    GuessAgain()
+    setHigherLowerClicked(true)
     console.log("higher", AINumber)
   }
-
+  
   function isLower () {
     SetAINumber([AINumber[0], AIGuess])
-    let robotAgeGuess = Math.floor(Math.random() * (AINumber[0] - AINumber[1] + 1) * AINumber[1])
-    setAIGuess(robotAgeGuess)
-    GuessAgain()
+    setHigherLowerClicked(true)
     console.log("Lower", AINumber)
   }
-
-
+  
+  
   return (
     <div className="App App-header">
        <form onSubmit={handleSubmit}>
@@ -53,8 +47,13 @@ function App() {
        </form>
 
       {isAgeSet ? <h1>The AI guessed that you were {AIGuess}</h1> : null}
-      {AIGuess === age && isAgeSet ? <h2>Guessed Your Age</h2> : null}
+      {AIGuess == age  && isAgeSet ? <h2>Guessed Your Age</h2> : null}
       {AIGuess && AIGuess !== age ? <div><h2>Is your age higher or lower</h2><button onClick={isHigher}>Higher</button><button onClick={isLower}>Lower</button></div> : null}
+      {higherLowerClicked && AIGuess != age? 
+      <form onSubmit={handleSubmit}>
+        <button>Guess Again</button>  
+      </form> :
+      null}
     </div>
   );
 }
