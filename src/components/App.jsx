@@ -19,7 +19,7 @@ function App() {
   
   function handleSubmit(e) {
     e.preventDefault()
-    let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) * AINumber[0])
+    let robotAgeGuess = Math.floor(Math.random() * (AINumber[1] - AINumber[0] + 1) + AINumber[0])
     console.log(robotAgeGuess)
     setAIGuess(robotAgeGuess)
     setIsAgeSet(true)
@@ -28,16 +28,13 @@ function App() {
   function isHigher () {
     SetAINumber([AIGuess, AINumber[1]])
     setHigherLowerClicked(true)
-    console.log("higher", AINumber)
   }
   
   function isLower () {
     SetAINumber([AINumber[0], AIGuess])
     setHigherLowerClicked(true)
-    console.log("Lower", AINumber)
   }
-  
-  
+
   return (
     <div className="App App-header">
        <form onSubmit={handleSubmit}>
